@@ -60,6 +60,7 @@ public class StudentClass implements IStudentManagement{
         //nhap mo ta class
         inputDescription(sc);
         //fafafafafaaaagagbakjghakjhgkjahgajk
+        //aaaaaaaaaaaaaaaaaa
 
     }
     public  void inputIdClass(Scanner sc){
