@@ -1,11 +1,10 @@
 package ra.run;
 
+import ra.enity.IStudentManagement;
 import ra.enity.Student;
 import ra.enity.StudentClass;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudentManagement {
     public static List<StudentClass> listStudentClass = new ArrayList<>();
@@ -54,7 +53,7 @@ public class StudentManagement {
                     updateClass(sc);
                     break;
                 case 3:
-                    displayClass(sc);
+                    displayClass();
                     break;
                 case 4:
                     displayActiveClass(sc);
@@ -106,7 +105,7 @@ public class StudentManagement {
 
     };
 
-    public static void displayClass(Scanner sc){
+    public static void displayClass(){
      for (StudentClass studentClass : listStudentClass){
          studentClass.displayData();
      }
@@ -152,22 +151,31 @@ public class StudentManagement {
             int choice = Integer.parseInt(sc.nextLine());
             switch (choice){
                 case 1:
+                    addNewStudent(sc);
                     break;
                 case 2:
+                    updateStudent(sc);
                     break;
                 case 3:
+                    displayStudent(sc);
                     break;
                 case 4:
+                    calAvg(sc);
                     break;
                 case 5:
+                    calListGPA();
                     break;
                 case 6:
+                    sortStudentByAvgMark();
                     break;
                 case 7:
+                    searchStudentByName(sc);
                     break;
                 case 8:
+                    countStudentByGPA();
                     break;
                 case 9:
+                    staticticStudentPass();
                     break;
                 case 10:
                     check = false;
@@ -229,5 +237,74 @@ public class StudentManagement {
         displayStudent(sc);
     };
 
+     public static void calListGPA() {
+        listStudent.forEach(student -> student.getGPAByAvgMark());
+    }
+    //6. Sắp xếp sinh viên theo điểm trung bình tăng dần
+
+    public static void sortStudentByAvgMark() {
+        Collections.sort(listStudent, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                if (o1.getAvgMark() > o2.getAvgMark()) {
+                    return 1;
+                } else if (o1.getAvgMark() < o2.getAvgMark()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
+    //7. Tìm kiếm sinh viên theo tên sinh viên
+
+    public static void searchStudentByName(Scanner sc) {
+        System.out.println("Nhập vào tên sinh viên muốn tìm kiếm: ");
+        String name = sc.nextLine();
+        for (Student student : listStudent) {
+            if (student.getStudentName().equals(name)) {
+                student.displayData();
+            }
+        }
+    }
+
+    //8. Thống kê số sinh viên đạt loại giỏi, khá, trung bình, yếu
+
+    public static void countStudentByGPA() {
+        int numberOfWeak = 0;
+        int numberOfAvange = 0;
+        int numberOfNormal = 0;
+        int numberOfGood = 0;
+        for (Student student : listStudent) {
+            switch (student.getGpa()) {
+                case "Yếu":
+                    numberOfWeak++;
+                    break;
+                case "Trung bình":
+                    numberOfAvange++;
+                    break;
+                case "Khá":
+                    numberOfNormal++;
+                    break;
+                case "Giỏi":
+                    numberOfGood++;
+                    break;
+            }
+        }
+        System.out.println("Số sinh viên đạt loại xuất sắc là: " + numberOfGood);
+        System.out.println("Số sinh viên đạt loại giỏi là: " + numberOfNormal);
+        System.out.println("Số sinh viên đạt loại khá là: " + numberOfAvange);
+        System.out.println("Số sinh viên đạt loại yếu là: " + numberOfWeak);
+    }
+
+    public static void staticticStudentPass() {
+        int numberOfPass = 0;
+        for (Student student : listStudent) {
+            if (student.getAvgMark() >= IStudentManagement.MARK_PASS) {
+                numberOfPass++;
+            }
+        }
+        System.out.printf("Có %d sinh viên Pass\n", numberOfPass);
+    }
 
 }
