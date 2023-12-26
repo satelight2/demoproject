@@ -59,9 +59,10 @@ public class StudentClass implements IStudentManagement{
 
         //nhap mo ta class
         inputDescription(sc);
-        //fafafafafaaaagagbakjghakjhgkjahgajk
-        //aaaaaaaaaaaaaaaaaa
-        //bb
+
+        //nhap trang thai class
+        inputClassStatus(sc);
+
     }
     public  void inputIdClass(Scanner sc){
         System.out.println("Nhap id class: ");
@@ -97,6 +98,19 @@ public class StudentClass implements IStudentManagement{
                 System.err.println("Mo ta class phai co it nhat 20 ki tu");
             }
         }while(true);
+    }
+
+    public void inputClassStatus(Scanner sc){
+        System.out.println("Nhap trang thai class: ");
+       this.classStatus = Integer.parseInt(sc.nextLine());
+       do{
+           if(0 <= this.classStatus && this.classStatus<=3){
+               break;
+              }else{
+               System.err.println("Trang thai class phai la 0 den 3");
+
+           }
+       }while (true);
     }
     @Override
     public void displayData() {
