@@ -66,8 +66,9 @@ public class StudentClass implements IStudentManagement{
     }
     public  void inputIdClass(Scanner sc){
         System.out.println("Nhap id class: ");
-        this.classId = sc.nextLine();
+
         do{
+            this.classId = sc.nextLine();
             if(this.classId.length()==5 && this.classId.startsWith("J")){
                 break;
             }else{
@@ -78,8 +79,9 @@ public class StudentClass implements IStudentManagement{
 
     public void inputClassName(Scanner sc){
         System.out.println("Nhap ten class: ");
-        this.className = sc.nextLine();
+
         do{
+            this.className = sc.nextLine();
             if(this.className.length()>=10){
                 break;
             }else{
@@ -90,8 +92,10 @@ public class StudentClass implements IStudentManagement{
 
     public void inputDescription(Scanner sc){
         System.out.println("Nhap mo ta class: ");
-        this.description = sc.nextLine();
+
         do{
+            this.description = sc.nextLine();
+
             if(this.description.length()>=20){
                 break;
             }else{
@@ -102,8 +106,9 @@ public class StudentClass implements IStudentManagement{
 
     public void inputClassStatus(Scanner sc){
         System.out.println("Nhap trang thai class: ");
-       this.classStatus = Integer.parseInt(sc.nextLine());
+
        do{
+           this.classStatus = Integer.parseInt(sc.nextLine());
            if(0 <= this.classStatus && this.classStatus<=3){
                break;
               }else{
@@ -114,6 +119,24 @@ public class StudentClass implements IStudentManagement{
     }
     @Override
     public void displayData() {
+        String classStatus = "";
+        switch (this.classStatus){
+            case 0:
+                classStatus = "Inactive";
+                break;
+            case 1:
+                classStatus = "Active";
+                break;
+            case 2:
+                classStatus = "New";
+                break;
+            case 3:
+                classStatus = "Graduated";
+                break;
+        }
+        System.out.printf("%-10s | %-20s | %-30s | %-10s%n", "Class ID", "Class Name", "Description", "Class Status");
+        System.out.println("---------------------------------------------------------------");
 
+        System.out.printf("%-10s | %-20s | %-30s | %-10s%n", this.classId, this.className, this.description, classStatus);
     }
 }
